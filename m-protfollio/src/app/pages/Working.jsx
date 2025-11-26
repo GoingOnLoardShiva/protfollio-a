@@ -3,7 +3,7 @@ import React from "react";
 export default function Working() {
   return (
     <div>
-      <div className="working-project p-16 grid sm:flex justify-between md:flex gap-10 sm:gap-0 md:gap-0 overflow-hidden">
+      <div className="working-project p-4 sm:p-16 grid sm:flex justify-between md:flex gap-10 sm:gap-0 md:gap-0 overflow-hidden">
         <div className="f-w-project relative w-full max-w-[708px] ">
           {/* TEXT OVERLAY */}
           <a href="/" className="overflow-text absolute inset-0 flex flex-col justify-between p-6">

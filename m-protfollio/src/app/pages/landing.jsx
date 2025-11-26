@@ -1,6 +1,14 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
+
+const sentence = `I’m a Web Application Developer specializing in building fast,
+scalable, and user-centered digital products using React, Next.js,
+Node.js & MongoDB.`;
+
+// Split into words
+const words = sentence.split(" ");
 
 function RotatingWord({ items = [], interval = 2000, className = "" }) {
   const [index, setIndex] = useState(0);
@@ -32,6 +40,7 @@ function RotatingWord({ items = [], interval = 2000, className = "" }) {
 
 export default function Landing() {
   const horizontalRef = useRef(null);
+  // const scrolingMovementText = useRef(null);
 
   useEffect(() => {
     let lenis;
@@ -100,18 +109,58 @@ export default function Landing() {
 
       {/* ABOUT SECTION */}
       <div className="flex flex-col gap-10 md:flex-row justify-between items-center px-6 md:px-16 py-10">
-        <div className="text-white font-Poppins text-[18px] md:text-[20px] leading-[30px] md:w-1/2">
-          I’m a Web Application Developer specializing in building fast,
-          scalable, and user-centered digital products using React, Next.js,
-          Node.js & MongoDB.
-          <ul className="mt-6 space-y-2">
-            <li className="text-orange-500">UI/UX Designer</li>
-            <li className="text-orange-500">Frontend Developer</li>
-            <li className="text-orange-500">Backend Developer</li>
-            <li className="text-orange-500">FullStack Developer</li>
-            <li className="text-orange-500">React Native Developer</li>
-          </ul>
-        </div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ staggerChildren: 0.08 }}
+          className="text-white font-Poppins text-[18px] md:text-[20px] leading-[30px] md:w-1/2"
+        >
+          <motion.p className="flex flex-wrap">
+            {words.map((word, index) => (
+              <motion.span
+                key={index}
+                variants={{
+                  hidden: { opacity: 0, y: 15 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="mr-2 inline-block"
+              >
+                {word}
+              </motion.span>
+            ))}
+          </motion.p>
+
+          {/* LIST ANIMATIONS (Optional) */}
+          <motion.ul
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ staggerChildren: 0.15 }}
+            className="mt-6 space-y-2"
+          >
+            {[
+              "UI/UX Designer",
+              "Frontend Developer",
+              "Backend Developer",
+              "FullStack Developer",
+              "React Native Developer",
+            ].map((item, i) => (
+              <motion.li
+                key={i}
+                className="text-orange-500"
+                variants={{
+                  hidden: { opacity: 0, x: -20 },
+                  visible: { opacity: 1, x: 0 },
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              >
+                {item}
+              </motion.li>
+            ))}
+          </motion.ul>
+        </motion.div>
 
         <div className="w-full md:w-1/2 flex justify-center">
           <img
@@ -125,9 +174,9 @@ export default function Landing() {
       {/* LENIS HORIZONTAL SCROLL */}
       <div
         ref={horizontalRef}
-        className="text-white font-Poppins py-12 text-[32px] md:text-[64px] flex gap-10 whitespace-nowrap will-change-transform"
+        className="text-white font-Poppins px-12 mt-24 text-[32px] md:text-[64px] flex gap-20 whitespace-nowrap will-change-transform"
       >
-        {Array(10)
+        {Array(5)
           .fill("New Project's")
           .map((text, i) => (
             <h1 key={i}>{text}</h1>
