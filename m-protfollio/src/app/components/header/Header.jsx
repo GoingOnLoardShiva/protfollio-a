@@ -199,7 +199,7 @@ export default function Header() {
                     initial={{ color: "#000000" }}
                     whileHover={{
                       color: "#FF6B00",
-                      transition: { duration: 0.4, ease: "easeInOut" },
+                      transition: { duration: 0.5, ease: "easeInOut" },
                     }}
                     whileTap={{ scale: 0.95 }}
                     className="cursor-pointer"
@@ -213,7 +213,7 @@ export default function Header() {
                     initial={{ color: "#000000" }}
                     whileHover={{
                       color: "#FF6B00",
-                      transition: { duration: 0.4, ease: "easeInOut" },
+                      transition: { duration: 0.6, ease: "easeInOut" },
                     }}
                     whileTap={{ scale: 0.95 }}
                     className="cursor-pointer"

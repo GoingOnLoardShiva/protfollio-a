@@ -84,7 +84,7 @@ export default function Landing() {
   return (
     <div className="w-full  overflow-hidden py-20">
       {/* HERO */}
-      <div className="p-6 md:p-16 lg:py-24">
+      <div className="p-6 md:p-16 lg:py-24 ">
         <span className="text-white bg-orange-500 px-3 py-1 text-lg md:text-2xl rounded">
           Creative
         </span>
@@ -172,15 +172,25 @@ export default function Landing() {
       </div>
 
       {/* LENIS HORIZONTAL SCROLL */}
-      <div
-        ref={horizontalRef}
-        className="text-white font-Poppins px-12 mt-24 text-[32px] md:text-[64px] flex gap-20 whitespace-nowrap will-change-transform"
-      >
-        {Array(5)
-          .fill("New Project's")
-          .map((text, i) => (
-            <h1 key={i}>{text}</h1>
-          ))}
+      <div className="mt-16 mx-auto max-w-6xl overflow-hidden">
+        <div
+          ref={horizontalRef}
+          className="text-white font-Poppins px-12 mt-24 text-[32px] md:text-[64px] flex gap-20 whitespace-nowrap will-change-transform"
+        >
+          {Array(5)
+            .fill("New Project's")
+            .map((text, i) => (
+              <motion.div
+                key={text}
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.04 }}
+                
+              >
+                <h1 key={i}>{text}</h1>
+              </motion.div>
+            ))}
+        </div>
       </div>
     </div>
   );
