@@ -51,12 +51,17 @@ export default function Header() {
 
       {/* Center */}
       <div className="hidden md:flex items-center">
-        {["About", "Project", "Skill", "Testimonials"].map((item) => (
+        {[
+          { label: "About", link: "/about" },
+          { label: "Project", link: "/projects" },
+          { label: "Contact", link: "/contact" },
+          // { label: "Testimonials", link: "/testimonials" },
+        ].map((nav) => (
           <div
-            key={item}
+            key={nav.label}
             className="text-white text-[16px] font-mono mx-4 font-bold cursor-pointer hover:text-orange-500"
           >
-            <a href="#">{item}</a>
+            <a href={nav.link}>{nav.label}</a>
           </div>
         ))}
       </div>
