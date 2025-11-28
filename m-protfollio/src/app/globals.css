@@ -4,6 +4,21 @@
   --background: #ffffff;
   --foreground: #171717;
 }
+/* Custom text selection color */
+::selection {
+  background: #f97316; /* orange-500 */
+  color: #000000; /* black */
+}
+
+::-moz-selection {
+  background: #f97316;
+  color: #000000;
+}
+
+body {
+  cursor: url('/Cells at Work! White Blood Cell & Knife Animated--cursor--SweezyCursors.png '), auto;
+}
+
 
 @theme inline {
   --color-background: var(--background);

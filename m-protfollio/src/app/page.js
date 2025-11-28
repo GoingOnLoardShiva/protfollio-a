@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
+import FooterA from './components/footer/FooterA'
 import Landing from './pages/landing'
 import Working from './pages/Working'
 import Skils from './pages/Skils'
@@ -14,6 +15,7 @@ export default function page() {
       <Working/>
       <Skils/>
       <Testimonial/>
+      <FooterA/>
       <Footer/>
     </div>
   )

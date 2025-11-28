@@ -1,168 +1,113 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
-import React, { useRef } from "react";
+import React from "react";
+import { motion } from "framer-motion";
 
-const pages = [
+const footerLinks = [
   {
-    id: 1,
-    tag: "Rafiki",
-    title: "The guide that keeps everything moving",
-    desc: "Your life coach. Your quiet guide through work and change. Always listening. Always learning. Always on your side.",
-    button: "Learn more",
-    image: "/p-3.webp",
+    title: "Company",
+    items: ["About", "Projects", "Skills", "Testimonials"],
   },
   {
-    id: 2,
-    tag: "Mentor",
-    title: "Helping you grow with confidence",
-    desc: "Your personal mentor helps you develop clarity and mindset through every challenge.",
-    button: "Discover",
-    image: "/p-2.webp",
+    title: "Support",
+    items: ["Help Center", "Privacy Policy", "Terms of Use"],
   },
   {
-    id: 3,
-    tag: "Hero",
-    title: "Strong support when you need it most",
-    desc: "Your reliable partner through obstacles and opportunities.",
-    button: "Explore",
-    image: "/p-1.webp",
+    title: "Social",
+    items: ["Instagram", "LinkedIn", "GitHub", "Twitter"],
   },
 ];
 
-export default function StackScroll() {
-  const containerRef = useRef(null);
+// Animation variants
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.6 },
+  }),
+};
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
+// Footer Component
+export default function Footer() {
   return (
-    <div ref={containerRef} className="relative h-[200vh] md:mt-20 md:py-0 hidden md:block ">
-      <div className="sticky top-0 h-screen flex justify-center items-center">
-        {pages.map((page, index) => {
-          const start = index * (1 / pages.length);
-          const end = start + 1 / pages.length;
+    <footer className="relative mt-32 bg-black text-white px-6 md:px-20 pt-24 pb-12 overflow-hidden">
 
-          // 🔥 MAIN CARD MOTIONS
-          const y = useTransform(
-            scrollYProgress,
-            [start, end],
-            [1200, 50] // comes from bottom
-          );
+      {/* Top Divider Line */}
+      <motion.div
+        initial={{ width: 0 }}
+        whileInView={{ width: "100%" }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="h-[1px] bg-white/10 mx-auto mb-12"
+      />
 
-          const scale = useTransform(
-            scrollYProgress,
-            [start, end],
-            [0.50, 1] // zoom in
-          );
+      {/* Footer Grid */}
+      <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
 
-          const opacity = useTransform(
-            scrollYProgress,
-            [start, end],
-            [1, 1] // fade in
-          );
+        {footerLinks.map((section, i) => (
+          <motion.div
+            key={section.title}
+            custom={i}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="space-y-4"
+          >
+            <h3 className="text-lg font-semibold text-white/90">{section.title}</h3>
 
-          // 🔥 NEXT CARD PEEKING EFFECT
-          const peekY = 0 * (pages.length + index); // how much stacking gap
+            <ul className="space-y-2">
+              {section.items.map((item, idx) => (
+                <motion.li
+                  key={item}
+                  whileHover={{ x: 6, color: "#fb923c" }} // Orange hover
+                  transition={{ duration: 0.2 }}
+                  className="cursor-pointer text-white/60 hover:text-orange-400"
+                >
+                  {item}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
 
-          return (
-            <div
-              className="first-seprate-div absolute bg-[#131313]  rounded-3xl shadow-2xl border border-white/10
-               flex flex-col md:flex-row gap-10 w-[100%] md:h-[800px] h-fit max-w-full
-              transition-all duration-500"
-            >
-              <motion.div
-                className="absolute bg-[#131313]  rounded-3xl shadow-2xl border border-white/10
-              p-8 md:p-14 flex flex-col md:flex-row gap-10 w-[100%] md:h-[800px] h-fit max-w-full
-              transition-all duration-500"
-              >
-                {/* IMAGE */}
-                <div className="w-full md:w-1/2 flex justify-center">
-                  <img
-                    src="/f-img.avif"
-                    className="rounded-2xl w-full h-full object-cover"
-                  />
-                </div>
-
-                {/* CONTENT */}
-                <div className="w-full md:w-1/2 flex flex-col justify-center">
-                  <span className="text-orange-500 font-semibold text-lg">
-                    Hero
-                  </span>
-
-                  <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight mt-2">
-                    Strong support when you need it most
-                  </h2>
-
-                  <p className="text-white mt-4 text-lg leading-relaxed">
-                    Your reliable partner through obstacles and opportunities.
-                  </p>
-
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="mt-6 bg-orange-500 text-white px-6 py-3 rounded-full w-fit font-semibold"
-                  >
-                    Explore
-                  </motion.button>
-                </div>
-              </motion.div>
-              <motion.div
-                key={page.id}
-                style={{
-                  y,
-                  scale,
-                  opacity,
-                  zIndex: 50 + index,
-                  translateY: peekY,
-                }}
-                transition={{
-                  delay: index * 3, // 🎉 each next card enters 0.3s later
-                  type: "spring",
-                  stiffness: 120,
-                  damping: 20,
-                }}
-                className="absolute bg-[#131313]  rounded-3xl shadow-2xl border border-white/10
-              p-8 md:p-14 flex flex-col md:flex-row gap-10 w-[100%] md:h-[800px] h-fit max-w-full
-              transition-all duration-500"
-              >
-                {/* IMAGE */}
-                <div className="w-full md:w-1/2 flex justify-center">
-                  <img
-                    src={page.image}
-                    alt={page.title}
-                    className="rounded-2xl w-full h-full object-cover"
-                  />
-                </div>
-
-                {/* CONTENT */}
-                <div className="w-full md:w-1/2 flex flex-col justify-center">
-                  <span className="text-orange-500 font-semibold text-lg">
-                    {page.tag}
-                  </span>
-
-                  <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight mt-2">
-                    {page.title}
-                  </h2>
-
-                  <p className="text-white mt-4 text-lg leading-relaxed">
-                    {page.desc}
-                  </p>
-
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="mt-6 bg-orange-500 text-white px-6 py-3 rounded-full w-fit font-semibold"
-                  >
-                    {page.button}
-                  </motion.button>
-                </div>
-              </motion.div>
-            </div>
-          );
-        })}
+        {/* Brand Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="md:col-span-3 flex flex-col items-center mt-10"
+        >
+          <h2 className="text-[38px] md:text-[56px] font-Poppins font-bold tracking-tight">
+            Hiren Ray
+          </h2>
+          <p className="text-white/60 mt-2 text-center md:w-1/2">
+            Creating beautiful digital experiences with performance, precision
+            & modern design systems.
+          </p>
+        </motion.div>
       </div>
-    </div>
+
+      {/* Scroll Animated Tagline (Marquee Style) */}
+      <div className="mt-20 overflow-hidden">
+        <motion.div
+          initial={{ x: "0%" }}
+          animate={{ x: "-50%" }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="flex gap-12 text-[28px] md:text-[40px] font-Poppins whitespace-nowrap opacity-20"
+        >
+          {Array(10)
+            .fill("Creative Developer • UI/UX Designer • React Expert •")
+            .map((t, i) => (
+              <span key={i}>{t}</span>
+            ))}
+        </motion.div>
+      </div>
+
+      {/* Bottom Line */}
+      <div className="text-center mt-16 text-white/40 text-sm">
+        © {new Date().getFullYear()} Hiren Ray. All rights reserved.
+      </div>
+    </footer>
   );
 }
