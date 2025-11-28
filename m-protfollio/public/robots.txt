@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://hirenray.vercel.app
+
+# Sitemaps
+Sitemap: https://hirenray.vercel.app/sitemap.xml
