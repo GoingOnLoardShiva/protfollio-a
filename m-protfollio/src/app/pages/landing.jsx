@@ -86,7 +86,7 @@ export default function Landing() {
     <div className="w-full  overflow-hidden py-20">
       {/* HERO */}
       <div className="p-6 md:p-16 lg:py-24 ">
-        <span className="text-white bg-orange-500 px-3 py-1 text-lg md:text-2xl rounded">
+        <span className="text-white bg-orange-500 px-3 py-1 text-lg md:text-2xl ">
           Creative
         </span>
 

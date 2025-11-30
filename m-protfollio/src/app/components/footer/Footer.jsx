@@ -5,15 +5,29 @@ import { motion } from "framer-motion";
 const footerLinks = [
   {
     title: "Company",
-    items: ["About", "Projects", "Skills", "Testimonials"],
+    items: [
+      { name: "About", link: "#about" },
+      { name: "Projects", link: "#projects" },
+      { name: "Skills", link: "#skills" },
+      { name: "Testimonials", link: "#testimonials" },
+    ],
   },
   {
     title: "Support",
-    items: ["Help Center", "Privacy Policy", "Terms of Use"],
+    items: [
+      { name: "Help Center", link: "/help" },
+      { name: "Privacy Policy", link: "/privacy" },
+      { name: "Terms of Use", link: "/terms" },
+    ],
   },
   {
     title: "Social",
-    items: ["Instagram", "LinkedIn", "GitHub", "Twitter"],
+    items: [
+      { name: "Instagram", link: "https://instagram.com/hirenray" },
+      { name: "LinkedIn", link: "https://linkedin.com/in/hiren-ray-b34215346" },
+      { name: "GitHub", link: "https://github.com/GoingOnLoardShiva" },
+      // { name: "Twitter", link: "https://twitter.com/hiren_ray" },
+    ],
   },
 ];
 
@@ -31,7 +45,6 @@ const fadeUp = {
 export default function Footer() {
   return (
     <footer className="relative mt-32 bg-black text-white px-6 md:px-20 pt-24 pb-12 overflow-hidden">
-
       {/* Top Divider Line */}
       <motion.div
         initial={{ width: 0 }}
@@ -41,51 +54,49 @@ export default function Footer() {
       />
 
       {/* Footer Grid */}
-      <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-
+      <div className="grid md:grid-cols-3 gap-12">
         {footerLinks.map((section, i) => (
           <motion.div
             key={section.title}
             custom={i}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             variants={fadeUp}
+            transition={{ duration: 0.5, delay: i * 0.08 }}
             className="space-y-4"
           >
-            <h3 className="text-lg font-semibold text-white/90">{section.title}</h3>
+            <h3 className="text-lg font-semibold text-white/90">
+              {section.title}
+            </h3>
 
             <ul className="space-y-2">
-              {section.items.map((item, idx) => (
-                <motion.li
-                  key={item}
-                  whileHover={{ x: 6, color: "#fb923c" }} // Orange hover
-                  transition={{ duration: 0.2 }}
-                  className="cursor-pointer text-white/60 hover:text-orange-400"
-                >
-                  {item}
-                </motion.li>
-              ))}
+              {section.items.map((item) => {
+                const isExternal = item.link.startsWith("http");
+
+                return (
+                  <motion.li
+                    key={item.name}
+                    whileHover={{ x: 6 }}
+                    transition={{ duration: 0.18 }}
+                    className="cursor-pointer text-white/60 hover:text-orange-400"
+                  >
+                    <a
+                      href={item.link}
+                      {...(isExternal
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="inline-block py-1"
+                      aria-label={`${item.name} link`}
+                    >
+                      {item.name}
+                    </a>
+                  </motion.li>
+                );
+              })}
             </ul>
           </motion.div>
         ))}
-
-        {/* Brand Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="md:col-span-3 flex flex-col items-center mt-10"
-        >
-          <h2 className="text-[38px] md:text-[56px] font-Poppins font-bold tracking-tight">
-            Hiren Ray
-          </h2>
-          <p className="text-white/60 mt-2 text-center md:w-1/2">
-            Creating beautiful digital experiences with performance, precision
-            & modern design systems.
-          </p>
-        </motion.div>
       </div>
 
       {/* Scroll Animated Tagline (Marquee Style) */}

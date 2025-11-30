@@ -12,6 +12,13 @@ const container = {
     },
   },
 };
+const navItems = [
+  { name: "About", link: "/about" },
+  { name: "Projects", link: "/projects" },
+  { name: "Skills", link: "/skills" },
+  { name: "Testimonials", link: "/testimonials" },
+  { name: "Contact", link: "https://cal.com/hiren-ray" },
+];
 
 const word = {
   hidden: { opacity: 0, y: 20 },
@@ -54,7 +61,7 @@ export default function Header() {
         {[
           { label: "About", link: "/about" },
           { label: "Project", link: "/projects" },
-          { label: "Contact", link: "/contact" },
+          { label: "Contact", link: "https://cal.com/hiren-ray" },
           // { label: "Testimonials", link: "/testimonials" },
         ].map((nav) => (
           <div
@@ -68,9 +75,15 @@ export default function Header() {
 
       {/* Right */}
       <div className="flex items-center">
-        <button className="bg-white text-black p-4 flex cursor-pointer font-bold mr-2 hover:bg-orange-500 hover:text-white transition-colors duration-300">
+        <a
+          href="https://cal.com/hiren-ray/30min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-white text-black p-4 flex cursor-pointer font-bold mr-2 hover:bg-orange-500 hover:text-white transition-colors duration-300 "
+        >
           Contact
-        </button>
+        </a>
+
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="text-white p-4 flex font-bold cursor-pointer items-center scale-z-200 hover:text-orange-500"
@@ -143,21 +156,19 @@ export default function Header() {
                 }}
                 className="text-black text-3xl sm:text-4xl font-bold space-y-6 text-start"
               >
-                {["About", "Projects", "Skills", "Testimonials", "Contact"].map(
-                  (item, i) => (
-                    <motion.li
-                      key={i}
-                      variants={{
-                        hidden: { opacity: 0, y: 20 },
-                        show: { opacity: 1, y: 0 },
-                      }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="hover:text-orange-500 cursor-pointer"
-                    >
-                      {item}
-                    </motion.li>
-                  )
-                )}
+                {navItems.map((nav, i) => (
+                  <motion.li
+                    key={i}
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      show: { opacity: 1, y: 0 },
+                    }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="hover:text-orange-500 cursor-pointer"
+                  >
+                    <a href={nav.link}>{nav.name}</a>
+                  </motion.li>
+                ))}
               </motion.ul>
 
               {/* SOCIAL BOTTOM SECTION */}
@@ -195,6 +206,9 @@ export default function Header() {
                     }}
                     whileTap={{ scale: 0.95 }}
                     className="cursor-pointer"
+                    href="https://linkedin.com/in/hiren-ray-b34215346"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Linkedin
                   </motion.a>
@@ -208,13 +222,14 @@ export default function Header() {
                     }}
                     whileTap={{ scale: 0.95 }}
                     className="cursor-pointer"
+                    href="https://www.instagram.com/if_you_think_i_am_here/"
                   >
                     Instagram
                   </motion.a>
 
                   <motion.a
                     variants={word}
-                    href="/"
+                    href="https://www.facebook.com/hirenray008"
                     initial={{ color: "#000000" }}
                     whileHover={{
                       color: "#FF6B00",
