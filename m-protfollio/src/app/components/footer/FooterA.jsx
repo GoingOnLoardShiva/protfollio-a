@@ -48,19 +48,19 @@ export default function StackScroll() {
           const y = useTransform(
             scrollYProgress,
             [start, end],
-            [1200, 50] // comes from bottom
+            [800, 0] // comes from bottom
           );
 
           const scale = useTransform(
             scrollYProgress,
             [start, end],
-            [0.50, 1] // zoom in
+            [0.20, 1] // zoom in
           );
 
           const opacity = useTransform(
             scrollYProgress,
             [start, end],
-            [1, 1] // fade in
+            [1, 2] // fade in
           );
 
           // 🔥 NEXT CARD PEEKING EFFECT
@@ -69,7 +69,7 @@ export default function StackScroll() {
           return (
             <div
               className="first-seprate-div absolute bg-[#131313]  rounded-3xl shadow-2xl border border-white/10
-               flex flex-col md:flex-row gap-10 w-[100%] md:h-[800px] h-fit max-w-full
+               flex flex-col md:flex-row gap-10 w-[100%]  h-fit max-w-full
               transition-all duration-500"
             >
               <motion.div
