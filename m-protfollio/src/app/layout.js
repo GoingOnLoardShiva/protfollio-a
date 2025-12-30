@@ -1,5 +1,6 @@
 import "./globals.css";
 import localFont from "next/font/local";
+import Script from "next/script";
 
 // Removed Google font imports (Geist) to avoid turbopack internal module import
 // If you want to use Google fonts, add them via a <link> in metadata or use a supported font
