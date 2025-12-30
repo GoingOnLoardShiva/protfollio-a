@@ -48,6 +48,19 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-S52C73KSGK"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-S52C73KSGK');
+          `}
+        </Script>
       </head>
       <body className={`${poppins.variable} antialiased`}>
         <noscript>
