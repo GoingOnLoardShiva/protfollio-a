@@ -13,6 +13,7 @@ import Testimonial from "./pages/Testimonial";
 
 import TypographyPreloader from "./pages/CinematicPreloader";
 import PageTransition from "./pages/PageTransition";
+import BlogPage from "./pages/BlogPage";
 
 export default function Page() {
   const [loading, setLoading] = useState(true);
@@ -40,7 +41,9 @@ export default function Page() {
             <Skils />
             <Testimonial />
             <FooterA />
+            <BlogPage />
             <Footer />
+            
           </div>
         </PageTransition>
       )}
