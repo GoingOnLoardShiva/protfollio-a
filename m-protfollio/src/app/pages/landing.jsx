@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const sentence = `I’m a Web Application Developer specializing in building fast,
 scalable, and user-centered digital products using React, Next.js,
@@ -28,9 +29,8 @@ function RotatingWord({ items = [], interval = 2000, className = "" }) {
   const current = items[index] || { text: "" };
   return (
     <span
-      className={`inline-block transition-opacity duration-300 ${
-        visible ? "opacity-100" : "opacity-0"
-      } ${className}`}
+      className={`inline-block transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"
+        } ${className}`}
       style={{ color: current.color }}
     >
       {current.text}
@@ -64,7 +64,7 @@ export default function Landing() {
 
       const el = horizontalRef.current;
       const speed = 0.25;
-      
+
 
       lenis.on("scroll", (e) => {
         if (!el || !mounted) return;
@@ -85,26 +85,70 @@ export default function Landing() {
   return (
     <div className="w-full  overflow-hidden py-20">
       {/* HERO */}
-      <div className="p-6 md:p-16 lg:py-24 ">
-        <span className="text-white bg-orange-500 px-3 py-1 text-lg md:text-2xl ">
-          Creative
-        </span>
+      <div className="p-6 md:p-16 lg:py-24 relative overflow-hidden">
 
-        <div className="text-white font-Poppins mt-5 font-bold leading-[1.1] text-[42px] md:text-[80px] lg:text-[120px] grid">
-          Web Designer
-          <span className="mx-2">
-            &{" "}
-            <RotatingWord
-              items={[
-                { text: "Developer", color: "#ff6900" },
-                { text: "Programmer", color: "#ff6900" },
-                { text: "Coder", color: "#ff6900" },
-                { text: "Editor", color: "#ff6900" },
-              ]}
-              interval={2000}
-              className="font-extrabold"
-            />
+        {/* 1. BACKGROUND FLOATING TEXT (The "Design" Watermark) */}
+        <div className="absolute top-0 right-0 -z-10 select-none pointer-events-none">
+          <h2 className="text-[20vw] font-black text-white/[0.03] leading-none uppercase italic">
+            Design
+          </h2>
+        </div>
+
+        {/* 2. THE BADGE (Innovative "Creative" Tag) */}
+        <div className="flex items-center gap-4 mb-6">
+          <span className="text-white bg-orange-500 px-4 py-1 text-sm md:text-xl font-bold tracking-[0.2em] uppercase rounded-full shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)]">
+            Creative
           </span>
+          <div className="h-[1px] w-20 bg-orange-500/50 hidden md:block"></div>
+        </div>
+
+        {/* 3. MAIN TYPOGRAPHY STACK */}
+        <div className="text-white font-Poppins font-black leading-[0.9] text-[50px] md:text-[100px] lg:text-[140px] flex flex-col tracking-tighter">
+
+          {/* Line 1: Solid Text */}
+          <motion.span
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            className="block"
+          >
+            WEB <span className="text-orange-500 italic">DESIGNER</span>
+          </motion.span>
+
+          {/* Line 2: Outlined & Dynamic Text */}
+          <div className="flex items-center gap-x-4 md:gap-x-8 flex-wrap">
+            <span className="text-transparent [text-stroke:1px_rgba(255,255,255,0.5)] md:[text-stroke:2px_rgba(255,255,255,0.5)]">
+              &
+            </span>
+
+            <div className="relative inline-block">
+              <RotatingWord
+                items={[
+                  { text: "DEVELOPER", color: "#ff6900" },
+                  { text: "PROGRAMMER", color: "#ff6900" },
+                  { text: "CODER", color: "#ff6900" },
+                  { text: "EDITOR", color: "#ff6900" },
+                ]}
+                interval={2000}
+                className="font-black drop-shadow-[0_0_15px_rgba(255,105,0,0.3)]"
+              />
+
+              {/* Decorative underline for the rotating word */}
+              <div className="absolute -bottom-2 left-0 w-full h-[4px] md:h-[8px] bg-orange-500/20 rounded-full overflow-hidden">
+                <motion.div
+                  animate={{ x: ["-100%", "100%"] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+                  className="w-1/2 h-full bg-orange-500"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 4. SUB-CAPTION (Professional Detail) */}
+        <div className="mt-10 max-w-md">
+          <p className="text-gray-400 text-lg md:text-xl leading-relaxed border-l-2 border-orange-500 pl-6 italic font-light">
+            Crafting <span className="text-white font-medium">unforgettable digital emotions</span> through pixel-perfect code and bold typography.
+          </p>
         </div>
       </div>
 
@@ -163,12 +207,44 @@ export default function Landing() {
           </motion.ul>
         </motion.div>
 
-        <div className="w-full md:w-1/2 flex justify-center">
-          <img
-            src="/f-img.avif"
-            alt="profile"
-            className="rounded-2xl w-full max-w-[400px] md:max-w-[600px]"
-          />
+        <div className="w-full md:w-1/2 flex justify-center md:absolute md:left-[55%] top-[5%]">
+          <div className="relative w-full max-w-[400px] md:max-w-[500px] aspect-[4/5] group">
+
+            {/* 1. VERTICAL SIDE TEXT (Professional Typography) */}
+            <div className="absolute -left-8 top-10 hidden md:block select-none">
+              <span className="text-gray-500 uppercase tracking-[10px] text-sm [writing-mode:vertical-lr] font-light">
+                Hiren Ray — Portfolio
+              </span>
+            </div>
+
+            {/* The Main Image */}
+            <Image
+              src="/hirenray.png"
+              alt="profile"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="rounded-2xl object-cover z-10 grayscale hover:grayscale-0 transition-all duration-500"
+            />
+
+            {/* 2. OVERLAY TYPOGRAPHY (Floating Minimalist) */}
+            <div className="absolute bottom-10 -right-0 z-20 flex flex-col items-end">
+              <div className="bg-orange-500 text-black font-bold text-[10px] px-2 py-1 mb-2 rounded-full tracking-tighter">
+                AVAILABLE FOR WORK
+              </div>
+              <h3 className="text-white text-5xl font-black leading-none text-right">
+                HIREN<br />
+                <span className="text-orange-500">RAY.</span>
+              </h3>
+              <p className="text-gray-400 text-xs italic mt-2 border-r-2 border-orange-500 pr-3">
+                Owner & Fullstack Dev
+              </p>
+            </div>
+
+            {/* 3. DECORATIVE BACKGROUND SHAPE */}
+            <div className="absolute inset-0 border-2 border-orange-500 rounded-2xl translate-x-4 translate-y-4 -z-10 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-500"></div>
+
+          </div>
         </div>
       </div>
 
@@ -185,8 +261,8 @@ export default function Landing() {
                 key={text}
                 initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.04   }}
-                
+                transition={{ duration: 0.6, delay: 0.04 }}
+
               >
                 <h1 key={i}>{text}</h1>
               </motion.div>

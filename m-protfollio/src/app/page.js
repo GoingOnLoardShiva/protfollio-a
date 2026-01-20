@@ -35,7 +35,7 @@ export default function Page() {
         // ✅ MAIN SITE WITH PAGE WIPE
         <PageTransition key="content">
           <div className="bg-[#131313] overflow-x-hidden">
-            <Header />
+            {/* <Header /> */}
             <Landing />
             <Working />
             <Skils />

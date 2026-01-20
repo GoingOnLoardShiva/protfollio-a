@@ -71,24 +71,30 @@ export default function CinematicPreloader({ onFinish }) {
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-white text-black"
           exit={{
             y: "-100vh",
-            transition: {
-              duration: 0.8,
-              ease: [0.76, 0, 0.24, 1],
-            },
+            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
           }}
         >
           <motion.div
             key={index}
-            className="flex gap-2 text-4xl md:text-6xl font-semibold tracking-widest"
+            /* FIX 1: Add 'whitespace-nowrap' so the language doesn't break into two lines */
+            className="flex gap-1 md:gap-3 text-4xl md:text-7xl font-semibold tracking-normal whitespace-nowrap"
             variants={container}
             initial="hidden"
             animate="show"
           >
-            {[...WORDS[index]].map((c, i) => (
-              <motion.span key={i} variants={letter}>
-                {c}
-              </motion.span>
-            ))}
+            {/* FIX 2: Use Array.from or Segmenter to handle special characters correctly */}
+            {Intl.Segmenter
+              ? [...new Intl.Segmenter().segment(WORDS[index])].map((segment, i) => (
+                <motion.span key={i} variants={letter}>
+                  {segment.segment}
+                </motion.span>
+              ))
+              : WORDS[index].split("").map((c, i) => (
+                <motion.span key={i} variants={letter}>
+                  {c}
+                </motion.span>
+              ))
+            }
           </motion.div>
         </motion.div>
       )}

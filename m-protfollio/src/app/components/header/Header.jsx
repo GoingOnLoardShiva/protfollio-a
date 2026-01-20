@@ -17,7 +17,7 @@ const navItems = [
   { name: "Projects", link: "/projects" },
   { name: "Skills", link: "/skills" },
   { name: "Testimonials", link: "/testimonials" },
-  { name: "Contact", link: "https://cal.com/hiren-ray" },
+  { name: "Contact", link: "/contact" },
 ];
 
 const word = {
@@ -61,7 +61,7 @@ export default function Header() {
         {[
           { label: "About", link: "/about" },
           { label: "Project", link: "/projects" },
-          { label: "Contact", link: "https://cal.com/hiren-ray" },
+          { label: "Contact", link: "/contact" },
           // { label: "Testimonials", link: "/testimonials" },
         ].map((nav) => (
           <div

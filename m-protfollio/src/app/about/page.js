@@ -1,119 +1,115 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
-// Example new content and components
-const headline = "Explore My Projects";
-const description = `A showcase of my latest work, built with modern web technologies and a focus on performance, accessibility, and design.`;
-const projects = [
-  { name: "E-Commerce Platform", desc: "A scalable online store with custom checkout and admin dashboard." },
-  { name: "Portfolio Website", desc: "Personal portfolio with interactive animations and responsive design." },
-  { name: "Blog Engine", desc: "A markdown-powered blog with live search and comments." },
-];
-
-const pageVariants = {
+const containerVars = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
-};
-const textVariant = {
-  hidden: { opacity: 0, y: 15 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
-export default function ProjectsPage() {
-  const horizontalRef = useRef(null);
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
+};
 
-  useEffect(() => {
-    let lenis;
-    let rafId;
-    let mounted = true;
-    async function setupLenis() {
-      const Lenis = (await import("lenis")).default;
-      lenis = new Lenis({
-        duration: 1.4,
-        smooth: true,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-      function raf(time) {
-        lenis.raf(time);
-        if (mounted) rafId = requestAnimationFrame(raf);
-      }
-      rafId = requestAnimationFrame(raf);
-      const el = horizontalRef.current;
-      const speed = 0.25;
-      lenis.on("scroll", (e) => {
-        if (!el || !mounted) return;
-        const sign = e.direction === "down" ? 1 : -1;
-        const x = sign * e.scroll * speed;
-        el.style.transform = `translateX(${x}px)`;
-      });
-    }
-    setupLenis();
-    return () => {
-      mounted = false;
-      if (rafId) cancelAnimationFrame(rafId);
-      if (lenis?.destroy) lenis.destroy();
-    };
-  }, []);
-
+export default function AboutPage() {
   return (
-    <motion.div initial="hidden" animate="visible" variants={pageVariants} className="w-full overflow-hidden py-20 bg-black">
-      {/* HERO */}
-      <div className="p-6 md:p-16 lg:py-24">
-        <motion.span variants={textVariant} className="text-white bg-orange-500 px-3 py-1 text-lg md:text-2xl rounded">
-          Projects
-        </motion.span>
-        <motion.h1 variants={textVariant} className="text-white font-Poppins mt-5 font-bold leading-[1.1] text-[42px] md:text-[80px] lg:text-[120px]">
-          {headline}
-        </motion.h1>
-        <motion.p variants={textVariant} className="mt-4 text-white/80 md:w-3/5 leading-relaxed">
-          {description}
-        </motion.p>
-      </div>
-      {/* PROJECTS LIST */}
-      <div className="flex flex-col gap-10 md:flex-row justify-between items-center px-6 md:px-16 py-10">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={pageVariants}
-          className="text-white font-Poppins text-[18px] md:text-[20px] leading-[30px] md:w-1/2"
+    <motion.div 
+      initial="hidden" 
+      animate="visible" 
+      variants={containerVars}
+      className="bg-[#050505] text-white overflow-hidden pb-20"
+    >
+      {/* 1. HERO SECTION: Typography Backdrop */}
+      <section className="relative h-screen flex items-center justify-center px-6">
+        <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[25vw] font-black text-white/[0.02] uppercase leading-none select-none">
+          CREATOR
+        </h1>
+        
+        <div className="relative z-10 text-center">
+          <motion.p variants={fadeUp} className="text-orange-500 font-mono tracking-[0.4em] mb-4">
+            EST. 2024 / INDIA
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="text-6xl md:text-9xl font-Poppins font-bold tracking-tighter">
+            Hiren <span className="italic text-transparent [text-stroke:2px_white]">Ray</span>
+          </motion.h2>
+          <motion.div variants={fadeUp} className="mt-8 flex justify-center">
+             <div className="w-12 h-[1px] bg-white/30 self-center"></div>
+             <p className="px-6 text-gray-400 italic">Building digital emotions through code</p>
+             <div className="w-12 h-[1px] bg-white/30 self-center"></div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 2. THE "BENTO" BIOGRAPHY: Unique Grid Layout */}
+      <section className="px-6 md:px-16 grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+        
+        {/* Large Bio Block */}
+        <motion.div 
+          variants={fadeUp}
+          className="md:col-span-8 bg-white/5 p-10 rounded-[3rem] border border-white/10 hover:bg-white/[0.07] transition-colors"
         >
-          <motion.ul initial="hidden" animate="visible" variants={pageVariants} className="space-y-6">
-            {projects.map((proj, i) => (
-              <motion.li key={proj.name} variants={textVariant} className="bg-white/5 rounded-xl p-6 shadow">
-                <h3 className="text-orange-500 font-bold text-xl mb-2">{proj.name}</h3>
-                <p className="text-white/80">{proj.desc}</p>
-              </motion.li>
-            ))}
-          </motion.ul>
+          <h3 className="text-orange-500 text-sm font-bold uppercase mb-6 tracking-widest">The Story</h3>
+          <p className="text-2xl md:text-4xl font-light leading-snug">
+            I am a <span className="text-white font-bold italic underline decoration-orange-500">Full-stack Designer</span> who believes that logic and aesthetics shouldn't be separated. I don't just write code; I orchestrate <span className="text-orange-500">user journeys</span>.
+          </p>
         </motion.div>
-        <div className="w-full md:w-1/2 flex justify-center">
-          <img
-            src="/Marketplace-Company-Home-Mobile-mockup_1.avif"
-            alt="project showcase"
-            className="rounded-2xl w-full max-w-[400px] md:max-w-[600px]"
-          />
-        </div>
-      </div>
-      {/* LENIS HORIZONTAL SCROLL */}
-      <div className="mt-16 mx-auto max-w-6xl overflow-hidden">
-        <div
-          ref={horizontalRef}
-          className="text-white font-Poppins px-12 mt-24 text-[32px] md:text-[64px] flex gap-20 whitespace-nowrap will-change-transform"
+
+        {/* Small Stats Block */}
+        <motion.div 
+          variants={fadeUp}
+          className="md:col-span-4 bg-orange-500 text-black p-10 rounded-[3rem] flex flex-col justify-between"
         >
-          {Array(5)
-            .fill("Featured Project")
-            .map((text, i) => (
-              <motion.div
-                key={text + i}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.04 }}
-              >
-                <h1>{text}</h1>
-              </motion.div>
+          <div className="text-6xl font-black">50+</div>
+          <p className="font-bold uppercase tracking-tighter leading-none">Projects<br/>Completed<br/>Globally</p>
+        </motion.div>
+
+        {/* Image / Vision Block */}
+        <motion.div 
+          variants={fadeUp}
+          className="md:col-span-4 aspect-square bg-blue-500 rounded-[3rem] overflow-hidden relative group"
+        >
+           <div className="absolute inset-0 bg-black/40 z-10 group-hover:bg-transparent transition-all duration-700"></div>
+           <img 
+            src="/hirenray.png" 
+            className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000" 
+            alt="About Hiren" 
+           />
+           <div className="absolute bottom-6 left-6 z-20">
+              <p className="text-white font-black text-2xl uppercase italic">Visual Mindset</p>
+           </div>
+        </motion.div>
+
+        {/* Tech Stack Block */}
+        <motion.div 
+          variants={fadeUp}
+          className="md:col-span-8 bg-white/5 p-10 rounded-[3rem] border border-white/10"
+        >
+          <h3 className="text-gray-500 text-sm font-bold uppercase mb-8">Mastered Tools</h3>
+          <div className="flex flex-wrap gap-4">
+            {["Next.js", "Tailwind", "Framer Motion", "Node.js", "PostgreSQL", "Figma", "Three.js"].map((skill) => (
+              <span key={skill} className="px-6 py-3 border border-white/20 rounded-full text-sm hover:bg-white hover:text-black transition-all cursor-default">
+                {skill}
+              </span>
             ))}
-        </div>
+          </div>
+        </motion.div>
+
+      </section>
+
+      {/* 3. RUNNING TEXT TYPOGRAPHY (The Signature Move) */}
+      <div className="mt-32 py-10 border-y border-white/10 flex overflow-hidden">
+        <motion.div 
+          animate={{ x: [0, -1000] }}
+          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          className="flex gap-20 whitespace-nowrap text-[80px] font-black uppercase"
+        >
+          {[...Array(4)].map((_, i) => (
+            <span key={i} className="flex gap-20">
+              Design <span className="text-orange-500">×</span> Development <span className="text-orange-500">×</span> Strategy
+            </span>
+          ))}
+        </motion.div>
       </div>
     </motion.div>
   );

@@ -1,6 +1,7 @@
 import "./globals.css";
 import localFont from "next/font/local";
 import Script from "next/script";
+import Header from "./components/header/Header";
 
 // Removed Google font imports (Geist) to avoid turbopack internal module import
 // If you want to use Google fonts, add them via a <link> in metadata or use a supported font
@@ -61,8 +62,11 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-S52C73KSGK');
           `}
         </Script>
+
       </head>
+
       <body className={`${poppins.variable} antialiased`}>
+        <Header />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-PZQQSTFF"
