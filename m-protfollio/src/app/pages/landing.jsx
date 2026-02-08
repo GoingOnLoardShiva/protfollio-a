@@ -219,8 +219,9 @@ export default function Landing() {
 
             {/* The Main Image */}
             <Image
-              src="/hirenray.png"
-              alt="profile"
+              src="/hiren-ray-developer.png"
+              alt="Hiren Ray – Full Stack Developer"
+              title="Hiren Ray – Software Engineer in Alipurduar"
               fill
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
